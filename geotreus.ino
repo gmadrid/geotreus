@@ -67,9 +67,9 @@ enum {
 enum {
   QWERTY,
   COLEMAK,
-  FUN,
-  UPPER,
-  SPECIAL
+  LOWER,
+  RAISE,
+  MOUSE
 };
 
 // clang-format off
@@ -77,69 +77,69 @@ KEYMAPS(
   // Keep this identical to the COLEMAK map (except for the Colemak keys)
   [QWERTY] = KEYMAP_STACKED
   (
-       Key_Q   ,Key_W   ,Key_E       ,Key_R         ,Key_T
-      ,Key_A   ,Key_S   ,Key_D       ,Key_F         ,Key_G
-      ,Key_Z   ,Key_X   ,Key_C       ,Key_V         ,Key_B, Key_Backtick
-      ,Key_Esc ,Key_Tab ,Key_LeftGui ,Key_LeftShift ,Key_Backspace ,Key_LeftControl
+       Key_Q     ,Key_W         ,Key_E           ,Key_R       ,Key_T
+      ,Key_A     ,Key_S         ,Key_D           ,Key_F       ,Key_G
+      ,Key_Z     ,Key_X         ,Key_C           ,Key_V       ,Key_B         ,Key_Tab
+      ,MO(LOWER) ,Key_Backspace ,Key_LeftControl ,Key_LeftGui ,Key_LeftShift ,Key_Esc
 
-                     ,Key_Y     ,Key_U      ,Key_I     ,Key_O      ,Key_P
-                     ,Key_H     ,Key_J      ,Key_K     ,Key_L      ,Key_Semicolon
-       ,Key_Backslash,Key_N     ,Key_M      ,Key_Comma ,Key_Period ,Key_Slash
-       ,Key_Enter    ,Key_Space ,MO(FUN)    ,Key_Minus ,Key_Quote  ,Key_LeftAlt
+                   ,Key_Y          ,Key_U        ,Key_I     ,Key_O      ,Key_P
+                   ,Key_H          ,Key_J        ,Key_K     ,Key_L      ,Key_Semicolon
+       ,Key_Enter  ,Key_N          ,Key_M        ,Key_Comma ,Key_Period ,Key_Slash
+       ,Key_Space  ,Key_RightShift ,Key_LeftAlt  ,Key_Minus ,Key_Quote  ,MO(RAISE)
   ),
 
   // Keep this identical to the QWERTY map (except for the Colemak keys)
+  // TODO: fix this to match QWERTY
   [COLEMAK] = KEYMAP_STACKED
   (
        Key_Q   ,Key_W   ,Key_F       ,Key_P         ,Key_G
       ,Key_A   ,Key_R   ,Key_S       ,Key_T         ,Key_D
-      ,Key_Z   ,Key_X   ,Key_C       ,Key_V         ,Key_B         ,Key_Backtick
-      ,Key_Esc ,Key_Tab ,Key_LeftGui ,Key_LeftShift ,Key_Backspace ,Key_LeftControl
+      ,Key_Z   ,Key_X   ,Key_C       ,Key_V         ,Key_B         ,Key_Tab
+      ,MO(LOWER) ,Key_Backspace ,Key_LeftControl ,Key_LeftGui ,Key_LeftShift ,Key_Esc
 
                      ,Key_J     ,Key_L      ,Key_U     ,Key_Y      ,Key_Semicolon
                      ,Key_H     ,Key_N      ,Key_E     ,Key_I      ,Key_O
-       ,Key_Backslash,Key_K     ,Key_M      ,Key_Comma ,Key_Period ,Key_Slash
-       ,Key_Enter    ,Key_Space ,MO(FUN)    ,Key_Minus ,Key_Quote  ,Key_LeftAlt
+       ,Key_Enter    ,Key_K     ,Key_M      ,Key_Comma ,Key_Period ,Key_Slash
+       ,Key_Space  ,Key_RightShift ,Key_LeftAlt  ,Key_Minus ,Key_Quote  ,MO(RAISE)
   ),
 
-  [FUN] = KEYMAP_STACKED
+  [LOWER] = KEYMAP_STACKED
   (
-       Key_Exclamation ,Key_At           ,Key_UpArrow   ,Key_Dollar           ,Key_Percent
-      ,Key_LeftParen   ,Key_LeftArrow    ,Key_DownArrow ,Key_RightArrow       ,Key_RightParen
-      ,Key_LeftBracket ,Key_RightBracket ,Key_Hash      ,Key_LeftCurlyBracket ,Key_RightCurlyBracket ,Key_Caret
-      ,TG(UPPER)       ,Key_Insert       ,Key_LeftGui   ,Key_LeftShift        ,Key_Delete         ,Key_LeftControl
+       XXX  ,XXX            ,Key_UpArrow     ,XXX             ,XXX
+      ,XXX  ,Key_LeftArrow  ,Key_DownArrow   ,Key_RightArrow  ,Key_PageUp
+      ,XXX  ,XXX            ,XXX             ,XXX             ,Key_PageDown  ,Key_Home
+      ,___  ,Key_Delete     ,Key_LeftControl ,Key_LeftGui     ,Key_LeftShift ,Key_Esc
 
-                   ,Key_PageUp   ,Key_7 ,Key_8      ,Key_9 ,Key_Backspace
-                   ,Key_PageDown ,Key_4 ,Key_5      ,Key_6 ,___
-      ,Key_And     ,Key_Star     ,Key_1 ,Key_2      ,Key_3 ,Key_Plus
-      ,Key_Enter   ,Key_Space    ,___   ,Key_Period ,Key_0 ,Key_LeftAlt
+                           ,Key_Backtick ,Key_7  ,Key_8      ,Key_9    ,Key_Minus
+                           ,Key_Period   ,Key_4  ,Key_5      ,Key_6    ,Key_Plus
+              ,Key_End     ,Key_0        ,Key_1  ,Key_2      ,Key_3    ,Key_Backslash
+              ,Key_Enter   ,Key_Space    ,___    ,Key_Equals ,Key_Star ,TG(MOUSE)
    ),
 
-  [UPPER] = KEYMAP_STACKED
+  [RAISE] = KEYMAP_STACKED
   (
-       Key_Insert            ,Key_Home                 ,Key_UpArrow   ,Key_End        ,Key_PageUp
-      ,Key_Delete            ,Key_LeftArrow            ,Key_DownArrow ,Key_RightArrow ,Key_PageDown
-      ,M(MACRO_VERSION_INFO) ,Consumer_VolumeIncrement ,XXX           ,XXX            ,___ ,MoveToLayer(SPECIAL)
-      ,MoveToLayer(QWERTY)   ,Consumer_VolumeDecrement ,___           ,___            ,___ ,___
+       Key_F7    ,Key_F8     ,Key_F9  ,Key_F10  ,Consumer_FastForward
+      ,Key_F4    ,Key_F5     ,Key_F6  ,Key_F11  ,Consumer_Rewind
+      ,Key_F1    ,Key_F2     ,Key_F3  ,Key_F12  ,Consumer_PlaySlashPause ,Consumer_Mute
+      ,TG(MOUSE) ,Key_Delete ,___     ,___      ,___                     ,___
 
-                ,Key_UpArrow   ,Key_F7              ,Key_F8          ,Key_F9         ,Key_F10
-                ,Key_DownArrow ,Key_F4              ,Key_F5          ,Key_F6         ,Key_F11
-      ,___      ,XXX           ,Key_F1              ,Key_F2          ,Key_F3         ,Key_F12
-      ,Consumer_PlaySlashPause  ,___           ,MoveToLayer(QWERTY) ,Key_PrintScreen ,Key_ScrollLock ,___
+                                 ,XXX                       ,XXX                   ,XXX              ,XXX               ,XXX
+                                 ,Key_LeftCurlyBracket      ,Key_RightCurlyBracket ,Key_LeftBracket  ,Key_RightBracket  ,XXX
+      ,Consumer_VolumeIncrement  ,Consumer_VolumeDecrement  ,XXX                   ,XXX              ,XXX               ,Key_Backslash
+      ,Key_Enter                 ,___                       ,___                   ,XXX              ,XXX               ,___
    ),
 
-  // Get to special layer by: FUN-Esc, Backtick
-  [SPECIAL] = KEYMAP_STACKED
+  [MOUSE] = KEYMAP_STACKED
   (
-       MoveToLayer(QWERTY)   ,MoveToLayer(COLEMAK)  ,XXX          ,XXX          ,XXX
-      ,XXX                   ,XXX                   ,XXX          ,XXX          ,XXX
-      ,M(MACRO_SPECIAL_INFO) ,XXX                   ,XXX          ,XXX          ,XXX          ,XXX
-      ,XXX                   ,Key_Tab               ,Key_LeftGui  ,XXX          ,XXX          ,XXX
+       XXX       ,XXX        ,Key_mouseUp ,XXX        ,Key_mouseBtnL
+      ,XXX       ,Key_mouseL ,Key_mouseDn ,Key_mouseR ,Key_mouseBtnM
+      ,XXX       ,XXX        ,XXX         ,XXX        ,Key_mouseBtnR ,XXX
+      ,TG(MOUSE) ,XXX        ,___         ,___        ,___           ,___
 
-                              ,XXX          ,LALT(LCTRL(Key_LeftArrow))         ,XXX          ,XXX          ,XXX
-                              ,XXX          ,XXX          ,XXX          ,XXX          ,XXX
-      ,XXX                    ,XXX          ,XXX          ,XXX          ,XXX          ,XXX
-      ,XXX  ,XXX          ,XXX          ,XXX          ,XXX          ,XXX
+                       ,Key_PrintScreen ,Key_mouseWarpEnd ,XXX             ,XXX ,XXX
+                       ,Key_Insert      ,Key_mouseWarpNW  ,Key_mouseWarpNE ,XXX ,XXX
+                  ,XXX ,XXX             ,Key_mouseWarpSW  ,Key_mouseWarpSE ,XXX ,XXX
+                  ,XXX ,___             ,___               ,XXX            ,XXX ,TG(MOUSE)
    )
 )
 // clang-format on
@@ -170,19 +170,6 @@ const macro_t *macroAction(uint8_t macro_id, KeyEvent &event) {
       Macros.type(PSTR("Keyboardio Atreus - Kaleidoscope "));
       Macros.type(PSTR(BUILD_INFORMATION));
       break;
-    case MACRO_SPECIAL_INFO:
-      // The last line of the message is designed to be readable
-      // if the host OS expects Colemak that explains why the message
-      // is garbled.
-      Macros.type(PSTR(R"=====(
-Special layer:
-  Z - Output this message
-  q - QWERTY base layer
-  w - Colemak base layer
-
-Fhk mkddatk ld ;juo skagabuk le fhk h;df :D kxrkcfd QWKSFO.
-GEORGE
-)====="));
     default:
       break;
     }
