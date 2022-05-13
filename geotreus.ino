@@ -132,7 +132,7 @@ KEYMAPS(
        XXX       ,XXX        ,Key_mouseUp ,XXX        ,Key_mouseBtnL
       ,XXX       ,Key_mouseL ,Key_mouseDn ,Key_mouseR ,Key_mouseBtnM
       ,XXX       ,XXX        ,XXX         ,XXX        ,Key_mouseBtnR ,XXX
-      ,___       ,XXX        ,___         ,___        ,___           ,UG(MOUSE)
+      ,M(MACRO_VERSION_INFO)       ,XXX        ,___         ,___        ,___           ,UG(MOUSE)
 
                        ,Key_PrintScreen ,Key_mouseWarpEnd ,XXX             ,XXX ,XXX
                        ,Key_Insert      ,Key_mouseWarpNW  ,Key_mouseWarpNE ,XXX ,XXX
