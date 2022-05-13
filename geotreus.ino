@@ -29,12 +29,6 @@
 #include "Kaleidoscope-MouseKeys.h"
 #include "Kaleidoscope-OneShot.h"
 #include "Kaleidoscope-Qukeys.h"
-#include "Kaleidoscope-SpaceCadet.h"
-
-// My mods:
-// - Swapping Alt and Enter keys
-// - Adding SPECIAL layer:
-//   - Switch to native Colemak mode (assumes host OS expects QWERTY).
 
 // Things I want to do maybe:
 // - Some system to type Parens, Brackets, Curlies easier.
@@ -47,6 +41,7 @@
 
 #define MO(n) ShiftToLayer(n)
 #define TG(n) LockLayer(n)
+#define UG(n) UnlockLayer(n)
 
 enum {
   MACRO_QWERTY,
@@ -72,6 +67,9 @@ enum {
   MOUSE
 };
 
+#define LEFT_MODS        ,Key_LeftShift ,Key_Esc ,Key_LeftGui ,Key_LeftControl ,Key_Backspace ,MO(LOWER)
+#define RIGHT_MODS       ,MO(RAISE)  ,Key_Space ,Key_LeftAlt  ,Key_Minus ,Key_Quote  ,Key_RightShift
+
 // clang-format off
 KEYMAPS(
   // Keep this identical to the COLEMAK map (except for the Colemak keys)
@@ -80,12 +78,12 @@ KEYMAPS(
        Key_Q     ,Key_W         ,Key_E           ,Key_R       ,Key_T
       ,Key_A     ,Key_S         ,Key_D           ,Key_F       ,Key_G
       ,Key_Z     ,Key_X         ,Key_C           ,Key_V       ,Key_B         ,Key_Tab
-      ,MO(LOWER) ,Key_Backspace ,Key_LeftControl ,Key_LeftGui ,Key_LeftShift ,Key_Esc
+      LEFT_MODS
 
                    ,Key_Y          ,Key_U        ,Key_I     ,Key_O      ,Key_P
                    ,Key_H          ,Key_J        ,Key_K     ,Key_L      ,Key_Semicolon
        ,Key_Enter  ,Key_N          ,Key_M        ,Key_Comma ,Key_Period ,Key_Slash
-       ,Key_Space  ,Key_RightShift ,Key_LeftAlt  ,Key_Minus ,Key_Quote  ,MO(RAISE)
+       RIGHT_MODS
   ),
 
   // Keep this identical to the QWERTY map (except for the Colemak keys)
@@ -95,12 +93,12 @@ KEYMAPS(
        Key_Q   ,Key_W   ,Key_F       ,Key_P         ,Key_G
       ,Key_A   ,Key_R   ,Key_S       ,Key_T         ,Key_D
       ,Key_Z   ,Key_X   ,Key_C       ,Key_V         ,Key_B         ,Key_Tab
-      ,MO(LOWER) ,Key_Backspace ,Key_LeftControl ,Key_LeftGui ,Key_LeftShift ,Key_Esc
+      LEFT_MODS
 
                      ,Key_J     ,Key_L      ,Key_U     ,Key_Y      ,Key_Semicolon
                      ,Key_H     ,Key_N      ,Key_E     ,Key_I      ,Key_O
        ,Key_Enter    ,Key_K     ,Key_M      ,Key_Comma ,Key_Period ,Key_Slash
-       ,Key_Space  ,Key_RightShift ,Key_LeftAlt  ,Key_Minus ,Key_Quote  ,MO(RAISE)
+       RIGHT_MODS
   ),
 
   [LOWER] = KEYMAP_STACKED
@@ -108,12 +106,12 @@ KEYMAPS(
        XXX  ,XXX            ,Key_UpArrow     ,XXX             ,XXX
       ,XXX  ,Key_LeftArrow  ,Key_DownArrow   ,Key_RightArrow  ,Key_PageUp
       ,XXX  ,XXX            ,XXX             ,XXX             ,Key_PageDown  ,Key_Home
-      ,___  ,Key_Delete     ,Key_LeftControl ,Key_LeftGui     ,Key_LeftShift ,Key_Esc
+      ,___  ,Key_Delete     ,Key_LeftControl ,Key_LeftGui     ,___ ,Key_Esc
 
                            ,Key_Backtick ,Key_7  ,Key_8      ,Key_9    ,Key_Minus
                            ,Key_Period   ,Key_4  ,Key_5      ,Key_6    ,Key_Plus
               ,Key_End     ,Key_0        ,Key_1  ,Key_2      ,Key_3    ,Key_Backslash
-              ,Key_Enter   ,Key_Space    ,___    ,Key_Equals ,Key_Star ,TG(MOUSE)
+              ,TG(MOUSE)   ,Key_Enter    ,___    ,Key_Equals ,Key_Star ,___
    ),
 
   [RAISE] = KEYMAP_STACKED
@@ -121,12 +119,12 @@ KEYMAPS(
        Key_F7    ,Key_F8     ,Key_F9  ,Key_F10  ,Consumer_FastForward
       ,Key_F4    ,Key_F5     ,Key_F6  ,Key_F11  ,Consumer_Rewind
       ,Key_F1    ,Key_F2     ,Key_F3  ,Key_F12  ,Consumer_PlaySlashPause ,Consumer_Mute
-      ,TG(MOUSE) ,Key_Delete ,___     ,___      ,___                     ,___
+      ,___ ,Key_Delete ,___     ,___      ,TG(MOUSE)                     ,___
 
-                                 ,XXX                       ,XXX                   ,XXX              ,XXX               ,XXX
-                                 ,Key_LeftCurlyBracket      ,Key_RightCurlyBracket ,Key_LeftBracket  ,Key_RightBracket  ,XXX
-      ,Consumer_VolumeIncrement  ,Consumer_VolumeDecrement  ,XXX                   ,XXX              ,XXX               ,Key_Backslash
-      ,Key_Enter                 ,___                       ,___                   ,XXX              ,XXX               ,___
+                                 ,LCTRL(LALT(Key_LeftArrow)),LCTRL(LALT(Key_DownArrow)),LCTRL(LALT(Key_UpArrow)),LCTRL(LALT(Key_RightArrow)),LCTRL(LALT(Key_Enter))
+                                 ,XXX                       ,Key_LeftCurlyBracket  ,Key_RightCurlyBracket ,Key_LeftBracket ,Key_RightBracket
+      ,Consumer_VolumeIncrement  ,Consumer_VolumeDecrement  ,XXX                   ,XXX                   ,XXX             ,Key_Backslash
+      ,___                 ,Key_Enter                       ,___                   ,XXX                   ,XXX             ,___
    ),
 
   [MOUSE] = KEYMAP_STACKED
@@ -134,24 +132,23 @@ KEYMAPS(
        XXX       ,XXX        ,Key_mouseUp ,XXX        ,Key_mouseBtnL
       ,XXX       ,Key_mouseL ,Key_mouseDn ,Key_mouseR ,Key_mouseBtnM
       ,XXX       ,XXX        ,XXX         ,XXX        ,Key_mouseBtnR ,XXX
-      ,TG(MOUSE) ,XXX        ,___         ,___        ,___           ,___
+      ,___       ,XXX        ,___         ,___        ,___           ,UG(MOUSE)
 
                        ,Key_PrintScreen ,Key_mouseWarpEnd ,XXX             ,XXX ,XXX
                        ,Key_Insert      ,Key_mouseWarpNW  ,Key_mouseWarpNE ,XXX ,XXX
                   ,XXX ,XXX             ,Key_mouseWarpSW  ,Key_mouseWarpSE ,XXX ,XXX
-                  ,XXX ,___             ,___               ,XXX            ,XXX ,TG(MOUSE)
+                   ,UG(MOUSE), XXX             ,___               ,XXX            ,XXX ,___
    )
 )
 // clang-format on
 
 KALEIDOSCOPE_INIT_PLUGINS(
+  Qukeys,
   EEPROMSettings,
   EEPROMKeymap,
   Focus,
   FocusEEPROMCommand,
   FocusSettingsCommand,
-  Qukeys,
-  SpaceCadet,
   OneShot,
   Macros,
   MouseKeys);
@@ -179,7 +176,14 @@ const macro_t *macroAction(uint8_t macro_id, KeyEvent &event) {
 
 void setup() {
   Kaleidoscope.setup();
-  SpaceCadet.disable();
+
+  QUKEYS(
+    kaleidoscope::plugin::Qukey(QWERTY, KeyAddr(3, 0), LSHIFT(Key_9)),    // LShift/(
+    kaleidoscope::plugin::Qukey(COLEMAK, KeyAddr(3, 0), LSHIFT(Key_9)),   // LShift/(
+    kaleidoscope::plugin::Qukey(QWERTY, KeyAddr(3, 11), LSHIFT(Key_0)),   // RShift/)
+    kaleidoscope::plugin::Qukey(COLEMAK, KeyAddr(3, 11), LSHIFT(Key_0)),  // RShift/)
+  )
+
   EEPROMKeymap.setup(10);
 }
 
