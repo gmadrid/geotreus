@@ -21,14 +21,14 @@
 #define BUILD_INFORMATION "locally built on " __DATE__ " at " __TIME__
 #endif
 
-#include "Kaleidoscope.h"
-#include "Kaleidoscope-EEPROM-Settings.h"
 #include "Kaleidoscope-EEPROM-Keymap.h"
+#include "Kaleidoscope-EEPROM-Settings.h"
 #include "Kaleidoscope-FocusSerial.h"
 #include "Kaleidoscope-Macros.h"
 #include "Kaleidoscope-MouseKeys.h"
 #include "Kaleidoscope-OneShot.h"
 #include "Kaleidoscope-Qukeys.h"
+#include "Kaleidoscope.h"
 
 // Things I want to do maybe:
 // - Some system to type Parens, Brackets, Curlies easier.
@@ -65,10 +65,12 @@ enum {
   LOWER,
   RAISE,
   MOUSE
-};
+;
 
-#define LEFT_MODS        ,Key_LeftShift ,Key_Esc ,Key_LeftGui ,Key_LeftControl ,Key_Backspace ,MO(LOWER)
-#define RIGHT_MODS       ,MO(RAISE)  ,Key_Space ,Key_LeftAlt  ,Key_Minus ,Key_Quote  ,Key_RightShift
+#define LEFT_MODS                                                              \
+  ,Key_LeftShift ,Key_Esc ,Key_LeftGui ,Key_LeftControl ,Key_Backspace, MO(LOWER)
+#define RIGHT_MODS                                                             \
+  ,MO(RAISE) ,Key_Space ,Key_LeftAlt ,Key_Minus ,Key_Quote ,Key_RightShift
 
 // clang-format off
 KEYMAPS(
@@ -95,10 +97,10 @@ KEYMAPS(
       ,Key_Z   ,Key_X   ,Key_C       ,Key_V         ,Key_B         ,Key_Tab
       LEFT_MODS
 
-                     ,Key_J     ,Key_L      ,Key_U     ,Key_Y      ,Key_Semicolon
-                     ,Key_H     ,Key_N      ,Key_E     ,Key_I      ,Key_O
-       ,Key_Enter    ,Key_K     ,Key_M      ,Key_Comma ,Key_Period ,Key_Slash
-       RIGHT_MODS
+                             ,Key_J     ,Key_L      ,Key_U     ,Key_Y      ,Key_Semicolon
+                             ,Key_H     ,Key_N      ,Key_E     ,Key_I      ,Key_O
+               ,Key_Enter    ,Key_K     ,Key_M      ,Key_Comma ,Key_Period ,Key_Slash
+               RIGHT_MODS
   ),
 
   [LOWER] = KEYMAP_STACKED
@@ -106,7 +108,7 @@ KEYMAPS(
        XXX  ,XXX            ,Key_UpArrow     ,XXX             ,XXX
       ,XXX  ,Key_LeftArrow  ,Key_DownArrow   ,Key_RightArrow  ,Key_PageUp
       ,XXX  ,XXX            ,XXX             ,XXX             ,Key_PageDown  ,Key_Home
-      ,___  ,Key_Delete     ,Key_LeftControl ,Key_LeftGui     ,___ ,Key_Esc
+      ,___  ,Key_Delete     ,___             ,___             ,___           ,___
 
                            ,Key_Backtick ,Key_7  ,Key_8      ,Key_9    ,Key_Minus
                            ,Key_Period   ,Key_4  ,Key_5      ,Key_6    ,Key_Plus
@@ -119,25 +121,25 @@ KEYMAPS(
        Key_F7    ,Key_F8     ,Key_F9  ,Key_F10  ,Consumer_FastForward
       ,Key_F4    ,Key_F5     ,Key_F6  ,Key_F11  ,Consumer_Rewind
       ,Key_F1    ,Key_F2     ,Key_F3  ,Key_F12  ,Consumer_PlaySlashPause ,Consumer_Mute
-      ,___ ,Key_Delete ,___     ,___      ,TG(MOUSE)                     ,___
+      ,___       ,Key_Delete ,___     ,___      ,TG(MOUSE)               ,___
 
-                                 ,LCTRL(LALT(Key_LeftArrow)),LCTRL(LALT(Key_DownArrow)),LCTRL(LALT(Key_UpArrow)),LCTRL(LALT(Key_RightArrow)),LCTRL(LALT(Key_Enter))
-                                 ,XXX                       ,Key_LeftCurlyBracket  ,Key_RightCurlyBracket ,Key_LeftBracket ,Key_RightBracket
-      ,Consumer_VolumeIncrement  ,Consumer_VolumeDecrement  ,XXX                   ,XXX                   ,XXX             ,Key_Backslash
-      ,___                 ,Key_Enter                       ,___                   ,XXX                   ,XXX             ,___
+                                 ,LCTRL(LALT(Key_LeftArrow)),LCTRL(LALT(Key_DownArrow)) ,LCTRL(LALT(Key_UpArrow)) ,LCTRL(LALT(Key_RightArrow)) ,LCTRL(LALT(Key_Enter))
+                                 ,XXX                       ,Key_LeftCurlyBracket       ,Key_RightCurlyBracket    ,Key_LeftBracket             ,Key_RightBracket
+      ,Consumer_VolumeIncrement  ,Consumer_VolumeDecrement  ,XXX                        ,XXX                      ,XXX                         ,Key_Backslash
+      ,___                       ,Key_Enter                 ,___                        ,XXX                      ,XXX                         ,___
    ),
 
   [MOUSE] = KEYMAP_STACKED
   (
-       XXX       ,XXX        ,Key_mouseUp ,XXX        ,Key_mouseBtnL
-      ,XXX       ,Key_mouseL ,Key_mouseDn ,Key_mouseR ,Key_mouseBtnM
-      ,XXX       ,XXX        ,XXX         ,XXX        ,Key_mouseBtnR ,XXX
-      ,M(MACRO_VERSION_INFO)       ,XXX        ,___         ,___        ,___           ,UG(MOUSE)
+       XXX                   ,XXX        ,Key_mouseUp ,XXX        ,Key_mouseBtnL
+      ,XXX                   ,Key_mouseL ,Key_mouseDn ,Key_mouseR ,Key_mouseBtnM
+      ,XXX                   ,XXX        ,XXX         ,XXX        ,Key_mouseBtnR ,XXX
+      ,M(MACRO_VERSION_INFO) ,XXX        ,___         ,___        ,___           ,UG(MOUSE)
 
                        ,Key_PrintScreen ,Key_mouseWarpEnd ,XXX             ,XXX ,XXX
                        ,Key_Insert      ,Key_mouseWarpNW  ,Key_mouseWarpNE ,XXX ,XXX
-                  ,XXX ,XXX             ,Key_mouseWarpSW  ,Key_mouseWarpSE ,XXX ,XXX
-                   ,UG(MOUSE), XXX             ,___               ,XXX            ,XXX ,___
+                       ,XXX             ,XXX              ,Key_mouseWarpSW ,Key_mouseWarpSE ,XXX ,XXX
+                       ,UG(MOUSE)       ,XXX              ,___             ,XXX             ,XXX ,___
    )
 )
 // clang-format on
