@@ -21,6 +21,7 @@
 #define BUILD_INFORMATION "locally built on " __DATE__ " at " __TIME__
 #endif
 
+#include "Kaleidoscope.h"
 #include "Kaleidoscope-EEPROM-Keymap.h"
 #include "Kaleidoscope-EEPROM-Settings.h"
 #include "Kaleidoscope-FocusSerial.h"
@@ -28,7 +29,6 @@
 #include "Kaleidoscope-MouseKeys.h"
 #include "Kaleidoscope-OneShot.h"
 #include "Kaleidoscope-Qukeys.h"
-#include "Kaleidoscope.h"
 
 // Things I want to do maybe:
 // - Some system to type Parens, Brackets, Curlies easier.
@@ -65,7 +65,7 @@ enum {
   LOWER,
   RAISE,
   MOUSE
-;
+};
 
 #define LEFT_MODS                                                              \
   ,Key_LeftShift ,Key_Esc ,Key_LeftGui ,Key_LeftControl ,Key_Backspace, MO(LOWER)
