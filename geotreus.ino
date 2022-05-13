@@ -31,9 +31,6 @@
 #include "Kaleidoscope-Qukeys.h"
 
 // Things I want to do maybe:
-// - Some system to type Parens, Brackets, Curlies easier.
-// - A layer for repositioning windows (Divvy layer?)
-// - Try out using corner keys as two-purpose shift modifiers
 // - Play with one-shot mods
 // - 2-purpose some of the home keys? Maybe for paren-likes.
 // - maybe tap dance the paren-likes
