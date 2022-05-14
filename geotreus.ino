@@ -54,6 +54,8 @@ enum {
 #define Key_Caret       LSHIFT(Key_6)
 #define Key_And         LSHIFT(Key_7)
 #define Key_Star        LSHIFT(Key_8)
+#define Key_LParen      LSHIFT(Key_9)
+#define Key_RParen      LSHIFT(Key_0)
 #define Key_Plus        LSHIFT(Key_Equals)
 
 enum {
@@ -177,10 +179,10 @@ void setup() {
   Kaleidoscope.setup();
 
   QUKEYS(
-    kaleidoscope::plugin::Qukey(QWERTY, KeyAddr(3, 0), LSHIFT(Key_9)),    // LShift/(
-    kaleidoscope::plugin::Qukey(COLEMAK, KeyAddr(3, 0), LSHIFT(Key_9)),   // LShift/(
-    kaleidoscope::plugin::Qukey(QWERTY, KeyAddr(3, 11), LSHIFT(Key_0)),   // RShift/)
-    kaleidoscope::plugin::Qukey(COLEMAK, KeyAddr(3, 11), LSHIFT(Key_0)),  // RShift/)
+    kaleidoscope::plugin::Qukey(QWERTY, KeyAddr(3, 0), Key_LParen),    // LShift/(
+    kaleidoscope::plugin::Qukey(COLEMAK, KeyAddr(3, 0), Key_LParen),   // LShift/(
+    kaleidoscope::plugin::Qukey(QWERTY, KeyAddr(3, 11), Key_RParen),   // RShift/)
+    kaleidoscope::plugin::Qukey(COLEMAK, KeyAddr(3, 11), Key_RParen),  // RShift/)
   )
 
   EEPROMKeymap.setup(10);
