@@ -18,7 +18,7 @@
  */
 
 #ifndef BUILD_INFORMATION
-#define BUILD_INFORMATION "locally built on " __DATE__ " at " __TIME__
+#define BUILD_INFORMATION "'geotreus' locally built on " __DATE__ " at " __TIME__
 #endif
 
 #include "Kaleidoscope.h"
